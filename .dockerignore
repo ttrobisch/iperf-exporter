@@ -1,0 +1,20 @@
+# Ignore backup files created by the Rust toolchain
+**/*.rs.bk
+
+# Ignore target directory which contains build files
+target/
+
+# Ignore .git directory
+.git/
+
+# Ignore files related to the local development environment
+.env
+*.log
+
+# Ignore IDE-specific directories (for example, for VS Code or IntelliJ IDEA)
+.vscode/
+.idea/
+
+# Ignore other files that might be in the root of your Rust project but are not needed for Docker builds
+README.md
+LICENSE
