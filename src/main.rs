@@ -30,13 +30,14 @@ async fn probe(params: web::Query<QueryInfo>, lock: web::Data<sync::Arc<sync::Mu
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
+    println!("Starting server");
     HttpServer::new(|| {
         let lock = sync::Arc::new(sync::Mutex::new(()));
         App::new()
             .app_data(web::Data::new(lock.clone()))
             .service(probe)
     })
-        .bind("127.0.0.1:3030")?
+        .bind("0.0.0.0:3030")?
         .run()
         .await
 }

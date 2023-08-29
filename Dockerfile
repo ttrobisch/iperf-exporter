@@ -1,6 +1,5 @@
 FROM rust:1.72.0 as builder
 LABEL authors="ttrobisch"
-
 # Build Stage
 WORKDIR /usr/src
 
@@ -12,17 +11,14 @@ COPY src ./src
 RUN cargo build --release
 
 # Final Stage
-FROM alpine:3.18.3
+FROM debian:bookworm-slim
 WORKDIR /app
 
-# Install iperf3
-RUN apk --no-cache add iperf3
+# Install iperf3, libc and any required dependencies
+RUN apt-get update && apt-get install -y iperf3
 
 # Copy the binary from the builder stage
-COPY --from=builder /usr/src/target/release/iperf-exporter .
+COPY --from=builder /usr/src/target/release/iperf-exporter /usr/local/bin/
 
-# Expose the port
-EXPOSE 3030
-
-# Command to run the binary
-CMD ["./iperf-exporter"]
+# Execute the binary
+CMD ["iperf-exporter"]
