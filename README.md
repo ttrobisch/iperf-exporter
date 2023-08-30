@@ -1,4 +1,4 @@
-# Rust Iperf3 Probe App
+# Iperf exporter
 
 This Rust application serves as an endpoint for running `iperf3` tests against a given target server. The application is built using the Actix Web framework.
 
