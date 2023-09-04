@@ -43,8 +43,8 @@ async fn probe(params: web::Query<ProbeOptions>, lock: web::Data<sync::Arc<sync:
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
     println!("Starting server");
-    HttpServer::new(|| {
-        let lock = sync::Arc::new(sync::Mutex::new(()));
+    let lock = sync::Arc::new(sync::Mutex::new(()));
+    HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(lock.clone()))
             .service(probe)
